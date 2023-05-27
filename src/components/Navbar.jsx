@@ -2,21 +2,17 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { BsFillPencilFill } from 'react-icons/bs';
 import { login, logout, onUserStateChanged } from '../api/firebase';
+import User from '../components/User';
 
 export default function Navbar() {
   const [user, setUser] = useState();
-  
+
   useEffect(() => {
     onUserStateChanged((user) => {
       setUser(user);
     });
   }, []);
-  const handleLogin = () => {
-    login().then(setUser);
-  };
-  const handleLogout = () => {
-    logout().then(setUser);
-  };
+
   return (
     <header className='block border-b border-gray-300 p-3'>
       <Link to='/' className='flex my-8 text-center text-5xl text-brand'>
@@ -32,9 +28,10 @@ export default function Navbar() {
         <Link to='products/new'>
           <BsFillPencilFill />
         </Link>
-
-        {!user && <button onClick={handleLogin}>Login</button>}
-        {user && <button onClick={handleLogout}>Logout</button>}
+        {user && <User user={user}/>}
+        <button onClick={!user ? login : logout}>
+          {!user ? 'Login' : 'Logout'}
+        </button>
       </nav>
     </header>
   );
