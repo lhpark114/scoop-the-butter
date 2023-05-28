@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { BsFillPencilFill } from 'react-icons/bs';
 import { login, logout, onUserStateChanged } from '../api/firebase';
 import User from '../components/User';
+import Button from './ui/Button';
 
 export default function Navbar() {
   const [user, setUser] = useState();
@@ -25,13 +26,17 @@ export default function Navbar() {
         <Link to='/location'>Location</Link>
         <Link to='/contact'>Contact</Link>
         <Link to='/carts'>Carts</Link>
-        <Link to='products/new'>
-          <BsFillPencilFill />
-        </Link>
-        {user && <User user={user}/>}
-        <button onClick={!user ? login : logout}>
-          {!user ? 'Login' : 'Logout'}
-        </button>
+        {user && user.isAdmin && (
+          <Link to='products/new' className='text-2xl'>
+            <BsFillPencilFill />
+          </Link>
+        )}
+        {user && <User user={user} />}
+          {!user ? (
+            <Button text={'Login'} onClick={login} />
+          ) : (
+            <Button text={'Logout'} onClick={logout} />
+          )}
       </nav>
     </header>
   );
