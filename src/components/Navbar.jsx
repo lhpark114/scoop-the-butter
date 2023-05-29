@@ -4,16 +4,10 @@ import { BsFillPencilFill } from 'react-icons/bs';
 import { login, logout, onUserStateChanged } from '../api/firebase';
 import User from '../components/User';
 import Button from './ui/Button';
+import { useAuthContext } from './context/AuthContext';
 
 export default function Navbar() {
-  const [user, setUser] = useState();
-
-  useEffect(() => {
-    onUserStateChanged((user) => {
-      setUser(user);
-    });
-  }, []);
-
+  const { user, login, logout } = useAuthContext();
   return (
     <header className='block border-b border-gray-300 p-3'>
       <Link to='/' className='flex my-8 text-center text-5xl text-brand'>
@@ -26,17 +20,18 @@ export default function Navbar() {
         <Link to='/location'>Location</Link>
         <Link to='/contact'>Contact</Link>
         <Link to='/carts'>Carts</Link>
+        {user && <Link to='/carts'>Carts</Link>}
         {user && user.isAdmin && (
           <Link to='products/new' className='text-2xl'>
             <BsFillPencilFill />
           </Link>
         )}
         {user && <User user={user} />}
-          {!user ? (
-            <Button text={'Login'} onClick={login} />
-          ) : (
-            <Button text={'Logout'} onClick={logout} />
-          )}
+        {!user ? (
+          <Button text={'Login'} onClick={login} />
+        ) : (
+          <Button text={'Logout'} onClick={logout} />
+        )}
       </nav>
     </header>
   );

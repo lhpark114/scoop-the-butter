@@ -15,6 +15,7 @@ import MyCart from './pages/MyCart';
 import NotFound from './pages/NotFound';
 
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import ProtectedRoute from './pages/ProtectedRoute';
 
 const router = createBrowserRouter([
   {
@@ -24,14 +25,28 @@ const router = createBrowserRouter([
     children: [
       { index: true, path: '/', element: <Home /> },
       { path: '/products', element: <AllProducts /> },
-      { path: '/products/new', element: <NewProduct /> },
+      {
+        path: '/products/new',
+        element: (
+          <ProtectedRoute requireAdmin>
+            <NewProduct />
+          </ProtectedRoute>
+        ),
+      },
       { path: '/products/:id', element: <ProductDetail /> },
       { path: '/about', element: <About /> },
       { path: '/gallery', element: <Gallery /> },
       { path: '/process', element: <Process /> },
       { path: '/location', element: <Location /> },
       { path: '/contact', element: <Contact /> },
-      { path: '/carts', element: <MyCart /> },
+      {
+        path: '/carts',
+        element: (
+          <ProtectedRoute>
+            <MyCart />
+          </ProtectedRoute>
+        ),
+      },
     ],
   },
 ]);
