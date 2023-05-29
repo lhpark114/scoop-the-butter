@@ -6,7 +6,7 @@ import {
   signOut,
   onAuthStateChanged,
 } from 'firebase/auth';
-import { getDatabase, ref, child, get } from 'firebase/database';
+import { getDatabase, ref, child, get, set } from 'firebase/database';
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -49,5 +49,16 @@ export function adminUser(user) {
   })
 }
 
-
+export function writeUserData(obj) {
+    set(ref(db, 'users/' + userId), {
+        let obj = 
+      {
+        newImage: newImage,
+      newName: newName,
+      newPrice: newPrice,
+      newCategory: newCategory,
+      newDescription: newDescription,
+      newSize: newSize}
+    });
+  };
 
