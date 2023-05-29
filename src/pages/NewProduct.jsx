@@ -1,41 +1,22 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 import CurrencyInput from 'react-currency-input-field';
 import { writeUserData } from '../api/firebase';
 import Button from '../components/ui/Button';
 
 export default function NewProduct() {
-  const [newImage, setNewImage] = useState(null);
-  const [newName, setNewName] = useState(null);
-  const [newPrice, setNewPrice] = useState(null);
-  const [newCategory, setNewCategory] = useState(null);
-  const [newDescription, setNewDescription] = useState(null);
-  const [newSize, setNewSize] = useState(null);
+  const [product, setProduct] = useState({});
+  const [file, setFile] = useState();
 
   const handleInputChange = (e) => {
-    const { id, value } = e.target;
-    if (id === 'newImage') {
-      setNewImage(value);
+    const { name, value, files } = e.target;
+    if(name === 'file') {
+      setFile(files && files[0]);
+      return;
     }
-    if (id === 'newName') {
-      setNewName(value);
-    }
-    if (id === 'newPrice') {
-      setNewPrice(value);
-    }
-    if (id === 'newCategory') {
-      setNewCategory(value);
-    }
-    if (id === 'newDescription') {
-      setNewDescription(value);
-    }
-    if (id === 'newSize') {
-      setNewSize(value);
-    }
+    setProduct((product) => ({ ...product, [name]:value}));
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    writeUserData(obj);
   };
 
   return (
@@ -51,7 +32,6 @@ export default function NewProduct() {
             id='newImage'
             placeholder='Choose Image'
             required
-            value={newImage}
             onChange={(e) => handleInputChange(e)}
           />
           <input
@@ -59,7 +39,7 @@ export default function NewProduct() {
             type='text'
             id='newName'
             placeholder='Product Name'
-            value={newName}
+            value={product.title ?? ''}
             onChange={(e) => handleInputChange(e)}
           />
           <CurrencyInput
@@ -68,7 +48,7 @@ export default function NewProduct() {
             placeholder='$ Price (put number only)'
             prefix='$'
             decimalsLimit={2}
-            value={newPrice}
+            value={product.price ?? ''}
             onValueChange={(value, name) => console.log(value, name)}
           />
           <input
@@ -76,7 +56,7 @@ export default function NewProduct() {
             type='text'
             id='newCategory'
             placeholder='Category'
-            value={newCategory}
+            value={product.category ?? ''}
             onChange={(e) => handleInputChange(e)}
           />
           <input
@@ -84,7 +64,7 @@ export default function NewProduct() {
             type='text'
             id='newDescription'
             placeholder='Description'
-            value={newDescription}
+            value={product.description ?? ''}
             onChange={(e) => handleInputChange(e)}
           />
           <input
@@ -92,7 +72,7 @@ export default function NewProduct() {
             type='text'
             id='newSize'
             placeholder='Size(please put , between sizes)'
-            value={newSize}
+            value={product.size ?? ''}
             onChange={(e) => handleInputChange(e)}
           />
         </form>
