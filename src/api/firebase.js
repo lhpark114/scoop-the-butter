@@ -6,7 +6,8 @@ import {
   signOut,
   onAuthStateChanged,
 } from 'firebase/auth';
-import { getDatabase, ref, child, get, set } from 'firebase/database';
+import { getDatabase, ref, get, set } from 'firebase/database';
+import {v4 as uuid} from 'uuid';
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -49,16 +50,14 @@ export function adminUser(user) {
   })
 }
 
-// export function writeUserData(obj) {
-//     set(ref(db, 'users/' + userId), {
-//         let obj = 
-//       {
-//         newImage: newImage,
-//       newName: newName,
-//       newPrice: newPrice,
-//       newCategory: newCategory,
-//       newDescription: newDescription,
-//       newSize: newSize}
-//     });
-//   };
+export function addNewProduct(product, image) {
+    const id = uuid();
+  set(ref(database, `products/${id}`), {
+    ...product,
+    id,
+    price: parseInt(product.new__price),
+    image,
+    options: product.new__size.split(','),
+  });
+};
 
