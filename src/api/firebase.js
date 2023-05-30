@@ -50,14 +50,14 @@ export function adminUser(user) {
   })
 }
 
-export function addNewProduct(product, image) {
-    const id = uuid();
-  set(ref(database, `products/${id}`), {
+export function addNewProduct(product, new__image) {
+  const id = uuid();
+  return set(ref(database, `products/${id}`), {
     ...product,
     id,
-    price: parseInt(product.new__price),
-    image,
-    options: product.new__size.split(','),
+    new__price: parseInt(product.new__price),
+    new__image,
+    new__size: product.new__size.split(','),
   });
 };
 
