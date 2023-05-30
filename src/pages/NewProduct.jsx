@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import CurrencyInput from 'react-currency-input-field';
-import { writeUserData } from '../api/firebase';
+import { uploadImage } from '../api/uploader';
 import Button from '../components/ui/Button';
 
 export default function NewProduct() {
@@ -8,15 +7,20 @@ export default function NewProduct() {
   const [file, setFile] = useState();
 
   const handleInputChange = (e) => {
-    const { name, value, files } = e.target;
-    if(name === 'file') {
+    const { className, value, files } = e.target;
+
+    if (className === 'new__image') {
       setFile(files && files[0]);
       return;
     }
-    setProduct((product) => ({ ...product, [name]:value}));
+    setProduct((product) => ({ ...product, [className]: value }));
   };
+
   const handleSubmit = (e) => {
     e.preventDefault();
+    uploadImage(file).then((url) => {
+      console.log(url);
+    });
   };
 
   return (
@@ -32,51 +36,55 @@ export default function NewProduct() {
             id='newImage'
             placeholder='Choose Image'
             required
-            onChange={(e) => handleInputChange(e)}
+            onChange={handleInputChange}
           />
           <input
             className='new__name'
             type='text'
             id='newName'
             placeholder='Product Name'
-            value={product.title ?? ''}
-            onChange={(e) => handleInputChange(e)}
+            value={product.new__name ?? ''}
+            required
+            onChange={handleInputChange}
           />
-          <CurrencyInput
+          <input
             id='newPrice'
+            type='number'
             className='new__price'
             placeholder='$ Price (put number only)'
-            prefix='$'
-            decimalsLimit={2}
-            value={product.price ?? ''}
-            onValueChange={(value, name) => console.log(value, name)}
+            value={product.new__price ?? ''}
+            required
+            onChange={handleInputChange}
           />
           <input
             className='new__category'
             type='text'
             id='newCategory'
             placeholder='Category'
-            value={product.category ?? ''}
-            onChange={(e) => handleInputChange(e)}
+            value={product.new__category ?? ''}
+            required
+            onChange={handleInputChange}
           />
           <input
             className='new__description'
             type='text'
             id='newDescription'
             placeholder='Description'
-            value={product.description ?? ''}
-            onChange={(e) => handleInputChange(e)}
+            value={product.new__description ?? ''}
+            required
+            onChange={handleInputChange}
           />
           <input
             className='new__size'
             type='text'
             id='newSize'
             placeholder='Size(please put , between sizes)'
-            value={product.size ?? ''}
-            onChange={(e) => handleInputChange(e)}
+            value={product.new__size ?? ''}
+            required
+            onChange={handleInputChange}
           />
+          <Button text={'Click to add New products'}></Button>
         </form>
-        <Button>{'Click to add New products'}</Button>
       </section>
     </>
   );

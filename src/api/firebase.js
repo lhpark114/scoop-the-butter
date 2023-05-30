@@ -49,16 +49,16 @@ export function adminUser(user) {
   })
 }
 
-export function writeUserData(obj) {
-    set(ref(db, 'users/' + userId), {
-        let obj = 
-      {
-        newImage: newImage,
-      newName: newName,
-      newPrice: newPrice,
-      newCategory: newCategory,
-      newDescription: newDescription,
-      newSize: newSize}
-    });
-  };
+// export function writeUserData(obj) {
+//     set(ref(db, 'users/' + userId), {
+//         let obj = 
+//       {
+//         newImage: newImage,
+//       newName: newName,
+//       newPrice: newPrice,
+//       newCategory: newCategory,
+//       newDescription: newDescription,
+//       newSize: newSize}
+//     });
+//   };
 
