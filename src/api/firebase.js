@@ -61,3 +61,11 @@ export function addNewProduct(product, new__image) {
   });
 };
 
+export function getProducts() {
+  return get(ref(database, 'products')).then((snapshot) => {
+    if (snapshot.exists()) {
+      return Object.values(snapshot.val())
+    }
+    return [];
+  });
+}
