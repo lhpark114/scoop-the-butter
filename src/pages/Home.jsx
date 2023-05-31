@@ -1,6 +1,10 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import Banner from '../components/images/Banner';
+import Products from '../components/Products';
 
 export default function Home() {
-  return <>Home</>;
+  return <section>
+    <Banner />
+    <Products />
+  </section>;
 }
