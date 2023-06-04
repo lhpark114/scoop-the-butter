@@ -28,24 +28,24 @@ export default function MyCart(product) {
   };
 
   return (
-    <section>
-      <h2 className='mx-12 mt-4 text-gray-700'>My Cart</h2>
+    <section className='p-8 flex flex-col'>
+      <p className='text-2xl text-center font-bold pb-4 border-b border-gray-300'>My Cart</p>
       {!hasProducts && <p>Nothing in the Cart</p>}
       {hasProducts && (
         <>
-          <ul>
+          <ul className='border-b border-gray-300 mb-8 p-4 px-8'>
             {products &&
               products.map((product) => (
                 <CartItem key={product.id} product={product} uid={uid} />
               ))}
           </ul>
-          <div>
+          <div className='flex justify-between items-center mb-4 p-2 md:px-8 lg: px-16'>
             <PriceCard text='Total Price' price={totalPrice} />
-            <BsFillCircleFill />
+            <BsFillCircleFill className='shrink-0' />
             <PriceCard text='Shipping Fee' price={SHIPPING} />
-            <FaEquals />
+            <FaEquals className='shrink-0' />
             <PriceCard text='Total Price' price={totalPrice + SHIPPING} />
-            <Button onClick={handleOrder}>Order</Button>
+            <Button text='Order' onClick={handleOrder} />
           </div>
         </>
       )}
