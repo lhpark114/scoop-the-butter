@@ -13,7 +13,8 @@ export function AuthContextProvider({ children }) {
     });
   }, []);
 
-  return <AuthContext.Provider value={({user, uid: user && user.uid, login: login, logout:logout})}>{children}</AuthContext.Provider>;
+  return <AuthContext.Provider 
+  value={({user, uid: user && user.uid, login: login, logout:logout})}>{children}</AuthContext.Provider>;
 }
 
 export function useAuthContext() {

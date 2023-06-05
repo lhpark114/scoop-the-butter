@@ -23,7 +23,6 @@ export default function ProductDetail(product) {
   const handleSelect = (e) => setSelected(e.target.value);
 
   const handleClick = (e) => {
-    console.log('Added Cart');
     const product = {
       id,
       new__image,

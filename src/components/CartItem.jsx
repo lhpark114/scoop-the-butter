@@ -11,8 +11,7 @@ export default function CartItem({
   uid,
 }) {
   const handleDecrease = () => {
-    if (quantity < 2);
-    return;
+    if (quantity < 2) return;
     addOrUpdateToCart(uid, { ...product, quantity: quantity - 1 });
   };
   const handleIncrease = () =>
@@ -42,9 +41,7 @@ export default function CartItem({
             className={ICON_CLASS}
             onClick={handleIncrease}
           />
-          <RiDeleteBin5Fill 
-          className={ICON_CLASS} 
-          onClick={handleDelete} />
+          <RiDeleteBin5Fill className={ICON_CLASS} onClick={handleDelete} />
         </div>
       </div>
     </li>

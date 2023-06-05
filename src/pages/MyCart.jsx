@@ -9,18 +9,17 @@ import PriceCard from '../components/PriceCard';
 import CartItem from '../components/CartItem';
 
 const SHIPPING = 3.0;
-export default function MyCart(product) {
+export default function MyCart() {
   const { uid } = useAuthContext();
   const { isLoading, data: products } = useQuery(['carts'], () => getCart(uid));
   if (isLoading) return <p>Loading...</p>;
 
-  const totalPrice = (product) => {
+  const totalPrice =
     products &&
-      products.reduce(
-        (prev, current) => prev + parseInt(current.price) * current.quantity,
-        0
-      );
-  };
+    products.reduce(
+      (prev, current) => prev + parseInt(current.new__price) * current.quantity,
+      0
+    );
   const hasProducts = products && products.length > 0;
 
   const handleOrder = (e) => {
@@ -29,7 +28,9 @@ export default function MyCart(product) {
 
   return (
     <section className='p-8 flex flex-col'>
-      <p className='text-2xl text-center font-bold pb-4 border-b border-gray-300'>My Cart</p>
+      <p className='text-2xl text-center font-bold pb-4 border-b border-gray-300'>
+        My Cart
+      </p>
       {!hasProducts && <p>Nothing in the Cart</p>}
       {hasProducts && (
         <>
