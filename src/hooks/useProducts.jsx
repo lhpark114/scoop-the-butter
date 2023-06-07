@@ -13,5 +13,5 @@ export default function useProducts() {
     }
   );
 
-  return productsQuery, addProduct;
+  return { productsQuery, addProduct };
 }
